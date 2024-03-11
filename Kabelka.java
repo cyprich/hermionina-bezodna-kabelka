@@ -6,6 +6,7 @@ public class Kabelka implements Zmensitelny, Vlozitelny {
     private int velkostKabelky;
     private int velkostOtvoru;
     private ArrayList<Vlozitelny> obsah;
+    private Vlozitelny najvacsiObjekt;
 
     public Kabelka(String nazov, int velkostKabelky, int velkostOtvoru) {
         this.nazov = nazov;
@@ -43,7 +44,6 @@ public class Kabelka implements Zmensitelny, Vlozitelny {
                 System.out.println(vec.getNazov() + " je prilis velky na vlozenie.");  // tento print som musel dat sem, ked bol pred touto podmienkou, vypisoval sa 2-krat v pripade kniznice (nezmestila sa ani normalne ani zmensena)
                 if (vec instanceof Zmensitelny) {
                     // ak je mozne ho zmensit
-                    return this.vloz(new Zmensenina((Zmensitelny)vec));
                 } else {
                     // ak nie je mozne ho zmensit (Tvor)
                     System.out.println(vec.getNazov() + " sa nemoze zmensit.");
@@ -65,6 +65,14 @@ public class Kabelka implements Zmensitelny, Vlozitelny {
 
     @Override
     public Optional<Vlozitelny> najdiVacsiAko(int velkost) {
-        return Optional.empty();
+        Vlozitelny najvacsiPredmet = this.obsah.getFirst();
+
+        for (Vlozitelny p : this.obsah) {
+            if (p.getVelkost() > najvacsiPredmet.getVelkost()) {
+                najvacsiPredmet = p;
+            }
+        }
+
+        return Optional.of(najvacsiPredmet);
     }
 }
