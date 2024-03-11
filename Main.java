@@ -45,6 +45,6 @@ public class Main {
 
         var p = hlavnaKabela.najdiVacsiAko(0);
 
-        System.out.println("Najvacsi predmet je " + p.get().getNazov());
+        //System.out.println("Najvacsi predmet je " + p.get().getNazov());
     }
 }

@@ -5,7 +5,7 @@ public class Kabelka implements Vlozitelny, Zmensitelny {
     private String nazov;
     private int velkostKabelky;
     private int velkostOtvoru;
-    private ArrayList obsah;
+    private ArrayList<Vlozitelny> obsah;
 
     public Kabelka(String nazov, int velkostKabelky, int velkostOtvoru) {
         this.nazov = nazov;
@@ -15,15 +15,28 @@ public class Kabelka implements Vlozitelny, Zmensitelny {
     }
 
     public void vlozVeci(Vlozitelny[] veci) {
-
+        for (Vlozitelny v : veci) {
+            this.vloz(v);
+        }
     }
 
     public boolean vloz(Vlozitelny vec) {
         if (vec.getVelkost() <= this.velkostOtvoru) {
             this.obsah.add(vec);
+            System.out.println(vec.getNazov() + " sa vosiel.");
             return true;
+        } else if (vec instanceof Zmensitelny) {
+            // zmensi
+            // vloz
+            return false;
+        } else if (vec instanceof Tvor) {
+            // daj do kabelky
+            // zmensi kabelku
+            // vloz
+            return false;
         }
 
+        System.out.println(vec.getNazov() + " sa nevosiel.");
         return false;
     }
 
