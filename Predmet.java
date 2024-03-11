@@ -1,6 +1,6 @@
 import java.util.Optional;
 
-public class Predmet implements Vlozitelny {
+public class Predmet implements Vlozitelny, Zmensitelny {
     private String nazov;
     private int velkost;
 
