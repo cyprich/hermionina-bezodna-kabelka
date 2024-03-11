@@ -40,7 +40,7 @@ public class Kabelka implements Zmensitelny, Vlozitelny {
                 return false;
             } else {
                 // ak este zmenseny nebol
-                System.out.println(vec.getNazov() + " je prilis velky na vlozenie.");
+                System.out.println(vec.getNazov() + " je prilis velky na vlozenie.");  // tento print som musel dat sem, ked bol pred touto podmienkou, vypisoval sa 2-krat v pripade kniznice (nezmestila sa ani normalne ani zmensena)
                 if (vec instanceof Zmensitelny) {
                     // ak je mozne ho zmensit
                     return this.vloz(new Zmensenina((Zmensitelny)vec));
