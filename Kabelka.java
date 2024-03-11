@@ -1,17 +1,19 @@
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class Kabelka implements Vlozitelny, Zmensitelny {
+public class Kabelka implements Zmensitelny, Vlozitelny {
     private String nazov;
     private int velkostKabelky;
     private int velkostOtvoru;
     private ArrayList<Vlozitelny> obsah;
+    private boolean jeZmenseny;
 
     public Kabelka(String nazov, int velkostKabelky, int velkostOtvoru) {
         this.nazov = nazov;
         this.velkostKabelky = velkostKabelky;
         this.velkostOtvoru = velkostOtvoru;
-        this.obsah = new ArrayList();
+        this.obsah = new ArrayList<Vlozitelny>();
+        this.jeZmenseny = false;
     }
 
     public void vlozVeci(Vlozitelny[] veci) {
@@ -22,21 +24,34 @@ public class Kabelka implements Vlozitelny, Zmensitelny {
 
     public boolean vloz(Vlozitelny vec) {
         if (vec.getVelkost() <= this.velkostOtvoru) {
+            // ak sa zmesti
             this.obsah.add(vec);
-            System.out.println(vec.getNazov() + " sa vosiel.");
+            if (vec instanceof Zmensenina) {
+                System.out.println(vec.getNazov() + " sa po zmenseni vojde.");
+            } else {
+                System.out.println(vec.getNazov() + " sa vosiel.");
+            }
             return true;
-        } else if (vec instanceof Zmensitelny) {
-            // zmensi
-            // vloz
-            return false;
-        } else if (vec instanceof Tvor) {
-            // daj do kabelky
-            // zmensi kabelku
-            // vloz
-            return false;
+        } else {
+            // ak sa nezmesti
+            if (vec instanceof Zmensitelny) {
+                // ak je zmensitelny
+                System.out.println(vec.getNazov() + " je prilis velky na vlozenie.");
+                if (!((Zmensitelny)vec).getJeZmenseny()) {
+                    // ak este nie je zmenseny
+                    Zmensenina zmensenina = new Zmensenina((Zmensitelny)vec);
+                    return this.vloz(zmensenina);
+                } else {
+                    // ak uz je zmenseny
+                    System.out.println(vec.getNazov() + " sa neda vlozit ani po zmenseni.");
+                    return false;
+                }
+            } else if (vec instanceof Tvor) {
+                // ak je tvor
+                System.out.println(vec.getNazov() + " sa nemoze zmensit.");
+                return false;
+            }
         }
-
-        System.out.println(vec.getNazov() + " sa nevosiel.");
         return false;
     }
 
@@ -53,5 +68,15 @@ public class Kabelka implements Vlozitelny, Zmensitelny {
     @Override
     public Optional<Vlozitelny> najdiVacsiAko(int velkost) {
         return Optional.empty();
+    }
+
+    @Override
+    public void setJeZmenseny() {
+        this.jeZmenseny = true;
+    }
+
+    @Override
+    public boolean getJeZmenseny() {
+        return this.jeZmenseny;
     }
 }
