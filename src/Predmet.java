@@ -1,3 +1,5 @@
+package src;
+
 import java.util.Optional;
 
 public class Predmet implements Vlozitelny, Zmensitelny {

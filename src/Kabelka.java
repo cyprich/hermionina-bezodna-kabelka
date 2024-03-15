@@ -1,3 +1,5 @@
+package src;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -46,7 +48,7 @@ public class Kabelka implements Zmensitelny, Vlozitelny {
                     // ak je mozne ho zmensit
                     return this.vloz(new Zmensenina((Zmensitelny)vec));
                 } else {
-                    // ak nie je mozne ho zmensit (Tvor)
+                    // ak nie je mozne ho zmensit (src.Tvor)
                     System.out.println(vec.getNazov() + " sa nemoze zmensit.");
                     return false;
                 }
@@ -66,7 +68,8 @@ public class Kabelka implements Zmensitelny, Vlozitelny {
 
     @Override
     public Optional<Vlozitelny> najdiVacsiAko(int velkost) {
-        Vlozitelny najvacsiPredmet = this.obsah.getFirst();
+        // nepochopil som ako mam spravit tuto metodu
+        Vlozitelny najvacsiPredmet = this.obsah.get(0);
 
         for (Vlozitelny p : this.obsah) {
             if (p.getVelkost() > najvacsiPredmet.getVelkost()) {
